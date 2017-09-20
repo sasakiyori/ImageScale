@@ -49,7 +49,7 @@ public class ImageScale {
 					//result.getRaster().setDataElements(j, i, imageData[j][i]);
 				}
 			try {
-				File resultImg = new File("result.png");
+				File resultImg = new File(width + "-" + height + ".png");
 				ImageIO.write((RenderedImage)result, "png", resultImg);
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -58,7 +58,31 @@ public class ImageScale {
 		}
 	}
 	
-	/*public int[][] scale(int[][] originImage) {
+	public int[][] scale(int[][] originImage, int outputWidth, int outputHeight) {
+		int originWidth = originImage.length;
+		int originHeight = originImage[0].length;
+		int[][] outputImage = new int[outputWidth][outputHeight];
 		
-	}*/
+		// get the ratio of output image to origin image
+		float ratioX = originWidth / outputWidth;
+		float ratioY = originHeight / outputHeight;
+		
+		for (int j = 0; j < outputHeight; j++)
+			for (int i = 0; i < outputWidth; i++) {
+				// use bilinear interpolation
+				double x = (i + 0.5) * ratioX - 0.5;
+				double y = (j + 0.5) * ratioY - 0.5;
+				//double x = (originWidth - outputWidth)/(outputWidth + 1)*(i + 1) + i;
+				//double y = (originHeight - outputHeight )/(outputHeight + 1)*(j + 1) + j;
+				System.out.println(x+" "+y+ " "+ j);
+				int a = (int)x, b = (int)y;
+
+				// the formula from wikipedia
+				// x1 = a, x2 = a + 1, y1 = b, y2 = b + 1
+				int fxy = (int)((b + 1 - y)*((a + 1 - x)*originImage[a][b] + (x - a)*originImage[a+1][b]) + 
+						(y - b)*((a + 1 - x)*originImage[a][b + 1] + (x - a)*originImage[a + 1][b + 1]));
+				outputImage[i][j]= fxy;
+			}
+		return outputImage;
+	}
 }
