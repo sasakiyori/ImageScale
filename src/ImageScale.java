@@ -18,6 +18,7 @@ public class ImageScale {
 			for (int y = 0; y < height; y++)
 				for (int x = 0; x < width; x++) {
 					//imageMatrix[x][y] = inputImage.getRaster().getSample(x, y, 0);
+					
 					imageMatrix[x][y] = inputImage.getRGB(x, y);
 				}
 			return imageMatrix;
@@ -48,5 +49,7 @@ public class ImageScale {
 		}
 	}
 	
-	
+	public int[][] scale(int[][] originImage) {
+		
+	}
 }
