@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.Console;
@@ -17,9 +18,17 @@ public class ImageScale {
 			
 			for (int y = 0; y < height; y++)
 				for (int x = 0; x < width; x++) {
-					//imageMatrix[x][y] = inputImage.getRaster().getSample(x, y, 0);
+					imageMatrix[x][y] = inputImage.getRaster().getSample(x, y, 0);
 					
-					imageMatrix[x][y] = inputImage.getRGB(x, y);
+					//imageMatrix[x][y] = inputImage.getRGB(x, y);
+					
+					/*
+					int rgb = inputImage.getRGB(x, y);
+					int r = (rgb >> 16) & 0xFF;
+					int g = (rgb >> 8) & 0xFF;
+					int b = rgb & 0xFF;
+					imageMatrix[x][y] = (int)(0.3 * r + 0.59 * g + 0.11 * b);
+					*/
 				}
 			return imageMatrix;
 		} catch (IOException e) {
@@ -36,8 +45,8 @@ public class ImageScale {
 			BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 			for (int i = 0; i < height; i++)
 				for (int j = 0; j < width; j++) {
-					result.setRGB(j, i, imageData[j][i]);
-					//result.getRaster().setDataElements(j, i, imageData[i][j]);
+					result.setRGB(j, i, new Color(imageData[j][i], imageData[j][i], imageData[j][i]).getRGB());
+					//result.getRaster().setDataElements(j, i, imageData[j][i]);
 				}
 			try {
 				File resultImg = new File("result.png");
@@ -49,7 +58,7 @@ public class ImageScale {
 		}
 	}
 	
-	public int[][] scale(int[][] originImage) {
+	/*public int[][] scale(int[][] originImage) {
 		
-	}
+	}*/
 }
