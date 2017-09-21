@@ -63,18 +63,12 @@ public class ImageScale {
 		int originHeight = originImage[0].length;
 		int[][] outputImage = new int[outputWidth][outputHeight];
 		
-		// get the ratio of output image to origin image
-		float ratioX = originWidth / outputWidth;
-		float ratioY = originHeight / outputHeight;
-		
 		for (int j = 0; j < outputHeight; j++)
 			for (int i = 0; i < outputWidth; i++) {
 				// use bilinear interpolation
-				double x = (i + 0.5) * ratioX - 0.5;
-				double y = (j + 0.5) * ratioY - 0.5;
-				//double x = (originWidth - outputWidth)/(outputWidth + 1)*(i + 1) + i;
-				//double y = (originHeight - outputHeight )/(outputHeight + 1)*(j + 1) + j;
-				System.out.println(x+" "+y+ " "+ j);
+				double x = ((originWidth - 2) * 1.0) / ((outputWidth - 1) * 1.0) * i + 0.5;
+				double y = ((originHeight - 2) * 1.0) / ((outputHeight - 1) * 1.0) * j + 0.5;
+
 				int a = (int)x, b = (int)y;
 
 				// the formula from wikipedia
