@@ -18,10 +18,10 @@ public class ImageScaleRunner {
 		imageScale.printImage(imageScale.scale(imageScale.getImage(), 500, 200), "scale");
 		
 		// 2.3
-//		imageScale.printImage(imageScale.quantize(imageScale.getImage(), 128), "quantize128");
-//		imageScale.printImage(imageScale.quantize(imageScale.getImage(), 32), "quantize32");
-//		imageScale.printImage(imageScale.quantize(imageScale.getImage(), 8), "quantize8");
-//		imageScale.printImage(imageScale.quantize(imageScale.getImage(), 4), "quantize4");
-//		imageScale.printImage(imageScale.quantize(imageScale.getImage(), 2), "quantize2");
+		imageScale.printImage(imageScale.quantize(imageScale.getImage(), 128), "quantize128");
+		imageScale.printImage(imageScale.quantize(imageScale.getImage(), 32), "quantize32");
+		imageScale.printImage(imageScale.quantize(imageScale.getImage(), 8), "quantize8");
+		imageScale.printImage(imageScale.quantize(imageScale.getImage(), 4), "quantize4");
+		imageScale.printImage(imageScale.quantize(imageScale.getImage(), 2), "quantize2");
 	}
 }

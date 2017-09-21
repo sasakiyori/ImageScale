@@ -1,14 +1,11 @@
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
 import java.awt.image.RenderedImage;
-import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 public class ImageScale {
 	public int[][] getImage() {
@@ -81,13 +78,28 @@ public class ImageScale {
 		return outputImage;
 	}
 	
-//	public int[][] quantize(int[][] originImage, int level) {
-//		int width = originImage.length;
-//		int height = originImage[0].length;
-//		int[][] quantizedImage = new int[width][height];
-//		// the distance from each level
-//		int d = 255 / (level - 1);
-//		
-//	}
+	public int[][] quantize(int[][] originImage, int level) {
+		int width = originImage.length;
+		int height = originImage[0].length;
+		int[][] quantizedImage = new int[width][height];
+		// the distance from each level
+		int d = 255 / (level - 1);
+		
+		for (int j = 0; j < height; j++)
+			for (int i = 0; i < width; i++) {
+				int transfer = originImage[i][j] / d;
+				double ratio = ((double)originImage[i][j] - transfer * d) / d;
+				if (ratio > 0.4) {
+					quantizedImage[i][j] = (transfer + 1) * d;
+					if (quantizedImage[i][j] > 255)
+						quantizedImage[i][j] = 255;
+				}
+				else {
+					quantizedImage[i][j] = transfer * d;
+				}
+				
+			}
+		return quantizedImage;
+	}
 
 }
